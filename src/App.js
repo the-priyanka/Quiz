@@ -1,11 +1,20 @@
-import "./App.css";
+import { useGlobalContext } from "./context";
+
+import SetupForm from "./components/SetupForm";
+import Loading from "./components/Loading";
 
 function App() {
-  return (
-    <div>
-      <h2>The Priyanka here!</h2>
-    </div>
-  );
+  const { waiting, loading, questions, index, correct } =
+    useGlobalContext();
+
+  if (waiting) {
+    return <SetupForm />;
+  }
+  if (loading) {
+    return <Loading />;
+  }
+
+  return <main>the priyanka</main>;
 }
 
 export default App;
