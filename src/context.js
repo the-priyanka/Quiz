@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 
-const temUrl =
+const tempUrl =
   "https://opentdb.com/api.php?amount=10&category=21&difficulty=easy&type=multiple";
 
 const AppContext = React.createContext();
@@ -41,6 +41,7 @@ const AppProvider = (props) => {
     setIndex((oldIndex) => {
       const index = oldIndex + 1;
       if (index > questions.length - 1) {
+        openModal();
         return 0;
       } else {
         return index;
@@ -55,8 +56,18 @@ const AppProvider = (props) => {
     nextQuestion();
   };
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setWaiting(true);
+    setCorrect(0);
+    setIsModalOpen(false);
+  };
+
   useEffect(() => {
-    fetchQuestions(temUrl);
+    fetchQuestions(tempUrl);
   }, []);
 
   return (
@@ -71,6 +82,8 @@ const AppProvider = (props) => {
         isModalOpen,
         nextQuestion,
         checkAnswer,
+        openModal,
+        closeModal,
       }}
     >
       {props.children}
