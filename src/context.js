@@ -41,6 +41,17 @@ const AppProvider = (props) => {
     fetchQuestions(temUrl);
   }, []);
 
+  const nextQuestion = () => {
+    setIndex((oldIndex) => {
+      const index = oldIndex + 1;
+      if (index > questions.length - 1) {
+        return 0;
+      } else {
+        return index;
+      }
+    });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -51,6 +62,7 @@ const AppProvider = (props) => {
         correct,
         error,
         isModalOpen,
+        nextQuestion,
       }}
     >
       {props.children}
