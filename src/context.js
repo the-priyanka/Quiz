@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 
 const tempUrl =
   "https://opentdb.com/api.php?amount=10&category=21&difficulty=easy&type=multiple";
@@ -72,7 +72,9 @@ const AppProvider = (props) => {
   };
 
   const handleChange = (e) => {
-    console.log(e);
+    const name = e.target.name;
+    const value = e.target.value;
+    setQuiz({ ...quiz, [name]: value });
   };
 
   const handleSubmit = (e) => {
