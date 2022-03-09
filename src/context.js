@@ -37,10 +37,6 @@ const AppProvider = (props) => {
     }
   };
 
-  useEffect(() => {
-    fetchQuestions(temUrl);
-  }, []);
-
   const nextQuestion = () => {
     setIndex((oldIndex) => {
       const index = oldIndex + 1;
@@ -51,6 +47,17 @@ const AppProvider = (props) => {
       }
     });
   };
+
+  const checkAnswer = (value) => {
+    if (value) {
+      setCorrect((oldState) => oldState + 1);
+    }
+    nextQuestion();
+  };
+
+  useEffect(() => {
+    fetchQuestions(temUrl);
+  }, []);
 
   return (
     <AppContext.Provider
@@ -63,6 +70,7 @@ const AppProvider = (props) => {
         error,
         isModalOpen,
         nextQuestion,
+        checkAnswer,
       }}
     >
       {props.children}
